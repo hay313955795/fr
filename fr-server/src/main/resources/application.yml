@@ -1,0 +1,11 @@
+server:
+  port: 8888
+
+com:
+  jdz:
+    #阿里云 oss配置信息
+    oss:
+      endpoint: http://oss-cn-hongkong.aliyuncs.com
+      accessKeyId:  LTAIdCfUaCod4okJ
+      accessKeySecret: vtOHJWF5ZZWo7pn0I9BuCv7nAxb8ez
+      bucketName: fastener
