@@ -22,3 +22,14 @@ spring:
     content-type: text/html
     #开发时关闭缓存,不然没法看到实时页面
     cache: false
+  mail:
+      host: smtp.163.com
+      username: apple123908@163.com
+      password: jsd1406
+      properties:
+        mail:
+          smtp:
+            auth: true
+            starttls:
+              enable: false
+              required: false

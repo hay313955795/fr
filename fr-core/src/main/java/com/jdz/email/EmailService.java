@@ -22,17 +22,17 @@ public class EmailService {
     private JavaMailSender javaMailSender;
 
 
-    public void sendSimpleMail(){
+    public void sendSimpleMail(String sendTo,String aa){
         MimeMessage message = null;
         try {
             message = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
-            helper.setFrom("jiajinhao@dbgo.cn");
-            helper.setTo("469140164@qq.com");
+            helper.setFrom("apple123908@163.com");
+            helper.setTo(sendTo);
             helper.setSubject("标题标题部分");
 
             StringBuffer sb = new StringBuffer();
-            sb.append("内容部分");
+            sb.append(aa);
             helper.setText(sb.toString(), true);
 //            FileSystemResource fileSystemResource=new FileSystemResource(new File("D:\76678.pdf"));
 //            helper.addAttachment("电子发票"，fileSystemResource);
