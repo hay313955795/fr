@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="fragments/mainFragment">
+    <head>
+        <title>后台管理</title>
+    </head>
+    <body>
+        <div th:fragment="menu">
+            <aside class="main-sidebar">
+                <!-- sidebar: style can be found in sidebar.less -->
+                <section class="sidebar">
+                    <!-- Sidebar user panel -->
+
+                    <!-- /.search form -->
+                    <!-- sidebar menu: : style can be found in sidebar.less -->
+                    <ul class="sidebar-menu" data-widget="tree" id="menus">
+                        <li class="active treeview">
+                            <a href="javascript:;" target="/manage/index">
+                                <i class="fa fa-dashboard"></i>
+                                <span>仪表盘</span>
+                            </a>
+                        </li>
+                        <li class="treeview">
+                            <a href="javascript:;">
+                                <i class="fa fa-laptop"></i>
+                                <span>公司设置</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li>
+                                    <a href="javascript:;" target="#">
+                                        <i class="fa fa-circle-o"></i>
+                                        公司信息编辑
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;" target="#">
+                                        <i class="fa fa-circle-o"></i>
+                                        首页轮播图配置
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;" target="#">
+                                        <i class="fa fa-circle-o"></i>
+                                        公司图片配置
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+
+
+                </section>
+                <!-- /.sidebar -->
+            </aside>
+            <script type='text/javascript' th:inline="javascript">
+                $('#menus li').click(function () {//点击li加载界面
+                    var current = $(this),
+                        target = current.find('a').attr('target'); // 找到链接a中的targer的值
+                    if (typeof(target) == 'undefined') {
+                        return;
+                    }
+                    window.location.href = target;
+                });
+            </script>
+        </div>
+
+    </body>
+
+
+</html>

@@ -4,10 +4,13 @@ import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.common.comm.ResponseMessage;
 import com.aliyun.oss.model.PutObjectResult;
 import com.jdz.properties.CommonProperties;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.InputStream;
+import java.net.URL;
+import java.util.Date;
 
 
 /**
@@ -23,6 +26,18 @@ public class OssCli {
     private CommonProperties commonProperties;
 
 
+    /**
+     * 是否设置图片url路径有效时间
+     */
+    private static final boolean IS_IMAGE_PRIVATE = false;
+
+    /**
+     * 图片url路径的有效时间
+     */
+    private static final Long IMAGE_VAILD_TIME = 3600L * 1000 * 24 * 365 * 10;
+
+
+
     public String upload2Oss(InputStream is, String saveFileName) {
 
         String endpoint = commonProperties.getOss().getEndpoint();
@@ -32,12 +47,28 @@ public class OssCli {
         // 创建OSSClient实例。
         OSSClient ossClient = new OSSClient(endpoint, accessKeyId, accessKeySecret);
         // 上传文件流。
-        PutObjectResult result = ossClient.putObject(commonProperties.getOss().getBucketName(), saveFileName, is);
+        ossClient.putObject(commonProperties.getOss().getBucketName(), saveFileName, is);
+        Date expiration = new Date(System.currentTimeMillis() + IMAGE_VAILD_TIME);
+
+        String url = getImageUrl(ossClient.generatePresignedUrl(commonProperties.getOss().getBucketName(),saveFileName,expiration),IS_IMAGE_PRIVATE);
         // 关闭OSSClient。
         ossClient.shutdown();
-        ResponseMessage response = result.getResponse();
-        response.getUri();
-        return "";
+        return url;
+    }
+
+    /**
+     * 截取。过滤掉url的有效时间
+     * @param url
+     * @return
+     */
+    public String getImageUrl(URL url,boolean isPrivate){
+        String imageUrl = url.toString();
+        if(!isPrivate){
+            imageUrl = StringUtils.substringBefore(imageUrl, "?");
+        }
+
+
+        return imageUrl;
     }
 
 }

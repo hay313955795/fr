@@ -1,13 +1,16 @@
 package com.jdz.web;
 
+import com.jdz.dto.ImageDto;
 import com.jdz.oss.OssCli;
 import com.jdz.properties.CommonProperties;
+import com.jdz.utils.IoUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 
@@ -37,13 +40,14 @@ public class ConController {
     }
 
     @PostMapping("/upload")
-    public String upload(@RequestParam("image")CommonsMultipartFile file) throws IOException {
+    public String upload(@RequestParam("image")MultipartFile file, ImageDto imageDto) throws IOException {
 
         InputStream is = file.getInputStream();
 
-        String s = ossCli.upload2Oss(is, "中文.png");
+        String fileSuffix = IoUtil.getFileSuffix(file);
+        String url = ossCli.upload2Oss(is, imageDto.getImageName()+"."+fileSuffix);
 
-        log.info("测试返回的url:{},图片名称：{}",s,"");
+        log.info("测试返回的url:{},图片名称：{}",url,imageDto.getImageName());
 
         return "upload";
     }

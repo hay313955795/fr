@@ -7,6 +7,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.net.URL;
+import java.util.Date;
 
 public class Demo {
 
@@ -19,9 +21,14 @@ public class Demo {
 // 创建OSSClient实例。
         OSSClient ossClient = new OSSClient(endpoint, accessKeyId, accessKeySecret);
 // 上传文件流。
-        File file = new File("D:\\ja.png");
+        File file = new File("/Users/three/Downloads/docker-happy-french-bastille-day-2016.jpg");
         InputStream inputStream = new FileInputStream(file);
-        PutObjectResult fastener = ossClient.putObject("fastener", "1.png", inputStream);
+        PutObjectResult fastener = ossClient.putObject("fastener", "dokcer.jpg", inputStream);
+
+        Date expiration = new Date(System.currentTimeMillis() + 3600L * 1000 * 24 * 365 * 10);
+        URL fastener1 = ossClient.generatePresignedUrl("fastener", "dokcer.jpg", expiration);
+        System.out.println(fastener1.toString());
+        System.out.println(fastener.getETag());
 // 关闭OSSClient。
         ossClient.shutdown();
     }

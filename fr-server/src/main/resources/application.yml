@@ -9,3 +9,16 @@ com:
       accessKeyId:  LTAIdCfUaCod4okJ
       accessKeySecret: vtOHJWF5ZZWo7pn0I9BuCv7nAxb8ez
       bucketName: fastener
+    email:
+      #接受邮件方的地址
+      sendTo: pear0577@163.com
+
+spring:
+  #thymeleaf模板引擎
+  thymeleaf:
+    #HTML5其实是一个很严格的检查所以这里填写LEGACYHTML5
+    mode: LEGACYHTML5
+    encoding: UTF-8
+    content-type: text/html
+    #开发时关闭缓存,不然没法看到实时页面
+    cache: false

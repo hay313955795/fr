@@ -17,8 +17,7 @@ public class Oss {
 
     private String accessKeySecret;
 
-    private String vtOHJWF5ZZWo7pn0I9BuCv7nAxb8ez;
-
     private String bucketName;
+
 
 }
